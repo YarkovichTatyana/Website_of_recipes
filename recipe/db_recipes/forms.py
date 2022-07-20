@@ -37,3 +37,26 @@ class LoginUserForm(AuthenticationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
+class IngredientesForm(forms.ModelForm):
+    class Meta:
+        model = Ingredientes
+        fields = ['ingredient', 'calories', 'price', 'amount']
+
+        widgets = {
+            'ingredient': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': "название"
+            }),
+            'calories': NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': "Калорийность продукта"
+            }),
+            'price': NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': "Цена в рублях за 100 гр "
+            }),
+            'amount': NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': "Количество в граммах"
+            })
+        }

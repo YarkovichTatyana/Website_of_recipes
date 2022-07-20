@@ -14,12 +14,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def all_recipes(request):
-    rec = Recipes.objects.order_by('title')
-    # search_guery = request.GET.get('q', '')
-    # if search_guery:
-    #     rec = Recipes.objects.filter(title__icontains=search_guery)
-    # else:
-    #     rec = Recipes.objects.order_by('title')
+    search_guery = request.GET.get('q', '')
+    if search_guery:
+        rec = Recipes.objects.filter(title__icontains=search_guery)
+    else:
+        rec = Recipes.objects.order_by('title')
     return render(request, 'db_recipes/all_recipes.html', {'rec': rec})
 
 
@@ -75,8 +74,7 @@ def calculator(request):
 
 
 def ingredient(request):
-    pass
-    # ing = Ingredientes.objects.order_by('ingredient')
+    ing = Ingredientes.objects.order_by('ingredient')
     # data = Calculation.objects.order_by('-id')
     # error = ''
     # if request.method == 'POST':
@@ -86,23 +84,22 @@ def ingredient(request):
     #     else:
     #         error = 'Форма введена неверно, попробуйте еще раз'
     # form = CalculationForm()
-    # # data1 = {
-    # #     'form': form
-    # # }
-    #
+    # data1 = {
+    #     'form': form
+    # }
     # return render(request, 'db_recipes/ingredient.html', {'ing': ing, 'data': data, 'form': form, 'error': error})
-    #
+    return render(request, 'db_recipes/ingredient.html', {'ing': ing})
+
 
 def recipe_month(request):
-    pass
-    # rec = Recipes.objects.all()
-    # return render(request, 'db_recipes/recipe_month.html', {'rec': rec})
+    rec = Recipes.objects.all()
+    return render(request, 'db_recipes/recipe_month.html', {'rec': rec})
 
 
-# class IngredientesDetailView(DetailView):
-    # model = Ingredientes
-    # template_name = 'db_recipes/details_ingredient.html'
-    # context_object_name = 'article'
+class IngredientesDetailView(DetailView):
+    model = Ingredientes
+    template_name = 'db_recipes/details_ingredient.html'
+    context_object_name = 'article'
 
 #class RecipesDetailView(FormMixin, DetailView):
 class RecipesDetailView(DetailView):

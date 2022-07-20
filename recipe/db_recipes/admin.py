@@ -12,10 +12,10 @@ class RecipesAdmin(admin.ModelAdmin):
     ordering = ('-id',)
 
 #
-# class IngredientesAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'ingredient', 'calories', 'price', 'amount')
-#     list_display_links = ('ingredient',)
-#     search_fields = ('ingredient',)
+class IngredientesAdmin(admin.ModelAdmin):
+    list_display = ('id', 'ingredient', 'calories', 'price', 'amount')
+    list_display_links = ('ingredient',)
+    search_fields = ('ingredient',)
 #
 #
 # class CalculationAdmin(admin.ModelAdmin):
@@ -23,6 +23,6 @@ class RecipesAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Recipes, RecipesAdmin)
-# admin.site.register(Ingredientes, IngredientesAdmin)
+admin.site.register(Ingredientes, IngredientesAdmin)
 # admin.site.register(Calculation, CalculationAdmin)
 from django.contrib import admin

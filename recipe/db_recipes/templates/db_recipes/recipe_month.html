@@ -3,18 +3,18 @@
 {% block greeting%} Лучшие рецепты недели {% endblock %}
 {% block content%}
 
-<!--        {% for el in rec%}-->
-<!--        <div id="main"id="list_rec">-->
-<!--            {%block title%}{{article.title}}{%endblock%}-->
-<!--          <br>-->
-<!--          <h3>{{ el.title }}</h3>-->
-<!--          <br>-->
-<!--          <p>{{ el.compound}}...</p>-->
+        {% for el in rec%}
+        <div id="main"id="list_rec">
+            {%block title%}{{article.title}}{%endblock%}
+          <br>
+          <h3>{{ el.title }}</h3>
+          <br>
+          <p>{{ el.compound}}...</p>
 
 
-<!--            <a href={% url 'recipe-detail' el.id %} class="button_add">Читать полностью</a>-->
-<!--        </div>-->
+            <a href={% url 'recipe-detail' el.id %} class="button_add">Читать полностью</a>
+        </div>
 
-<!--        {% endfor %}-->
+        {% endfor %}
 
 {% endblock %}

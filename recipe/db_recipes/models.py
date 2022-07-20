@@ -16,18 +16,17 @@ class Recipes(models.Model):
 
 
 
-# class Ingredientes(models.Model):
-#     ingredient = models.CharField (max_length=100, verbose_name='Ингридиент')
-#     calories = models.FloatField (verbose_name='Ккал на 100гр')
-#     price = models.FloatField(verbose_name='Цена за 100 гр')
-#     amount = models.FloatField(verbose_name='Кол-во, гр', default=0)
-#
-#
-#     def __str__(self):
-#         return self.ingredient
-#     class Meta:
-#         verbose_name='Ингредиент'
-#         verbose_name_plural = 'Ингредиенты'
+class Ingredientes(models.Model):
+    ingredient = models.CharField (max_length=100, verbose_name='Ингридиент')
+    calories = models.FloatField (verbose_name='Ккал на 100гр')
+    price = models.FloatField(verbose_name='Цена за 100 гр', default=0)
+    amount = models.FloatField(verbose_name='Кол-во, гр', default=0)
+
+    def __str__(self):
+        return self.ingredient
+    class Meta:
+        verbose_name='Ингредиент'
+        verbose_name_plural = 'Ингредиенты'
 #
 # class Calculation(models.Model):
 #     ingredient = models.CharField (max_length=100, verbose_name='Ингридиент')
