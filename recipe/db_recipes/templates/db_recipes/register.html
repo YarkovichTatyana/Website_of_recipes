@@ -1,0 +1,16 @@
+{% extends 'main/layout.html' %}
+
+{% block greeting%} Привет, я сайт твоих рецептов {% endblock %}
+{% block content%}
+<div id="main">
+ <form  method="post">
+  {% csrf_token %}
+    {% for el in form %}
+  <p><label class="form-label" for="{{ el.id_for_label}}">{{el.label}}:</label> {{el}}</p>
+  <div class="form-error">{{el.errors}}</div>
+  {% endfor %}
+  <button class="button_add" type="submit">Регистрация</button>
+ </form>
+
+</div>
+{% endblock %}

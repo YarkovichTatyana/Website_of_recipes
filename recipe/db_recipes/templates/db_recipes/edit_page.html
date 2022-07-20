@@ -1,0 +1,82 @@
+{% extends 'main/layout.html' %}
+
+{% block greeting%} Привет, я сайт твоих рецептов {% endblock %}
+{% block content%}
+<!--<div id="main">-->
+<!--   <p>Редактирование рецепта </p>-->
+
+<!--    {% if success %}-->
+<!--    <p style="color:red">Рецепт добавлен</p>-->
+<!--    {% endif %}-->
+
+
+<!--    {% if update %}-->
+<!--        {% if success_update %}-->
+<!--            <p style="color:red">Запись обновлена</p>-->
+<!--        {% endif %}-->
+
+<!--        <p class="mt-4">Страница редактирования</p>-->
+<!--        <p><a href="{% url 'edit_page' %}">Вернуться назад</a></p>-->
+
+<!--         <form id="update_data" method="post">-->
+<!--            {% csrf_token %}-->
+<!--            {{form}}-->
+<!--        </form>-->
+
+<!--        <button form="update_data" type="submit" class="btn btn-primary">Обновить</button>-->
+<!--    {% else %}-->
+
+<!--          {% for i in rec %}-->
+<!--            <p>{{i.title}}-->
+<!--            <a href="{% url 'update_page' i.id %}" class="btn btn-dark mb-3">редактировать</a>-->
+<!--                <form id='delete_form' action="{%url 'delete_page' i.id %}" method="post">{% csrf_token %}</form>-->
+
+<!--            <a href="{% url 'delete_page' i.id %}" class="btn btn-danger mb-3">удалить</a>-->
+<!--            {% endfor %}-->
+<!--            </p>-->
+
+<!--    {% endif %}-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <br>-->
+
+<!--       <p>Добавление рецепта </p>-->
+<!--     <div>-->
+<!--        <form method="post">-->
+<!--        {% csrf_token %}-->
+<!--            {{form.title}}-->
+<!--            {{form.compound}}-->
+<!--            {{form.cooking}}-->
+<!--             <span>{{error}}</span>-->
+<!--            <br>-->
+<!--            <button type="submit" class="btn btn-primary">Добавить</button>-->
+<!--        </form>-->
+<!--    </div>-->
+
+<!--</div>-->
+
+<!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--  <div class="modal-dialog" role="document">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--          <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <form id="add_form" method="post">-->
+<!--            {% csrf_token %}-->
+<!--            {{form}}-->
+<!--        </form>-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-secondary" data-dismiss="modal">закрыть</button>-->
+<!--        <button form="add_form" type="submit" class="btn btn-primary">Добавить</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+{% endblock %}
+
