@@ -17,6 +17,12 @@ class IngredientesAdmin(admin.ModelAdmin):
     list_display_links = ('ingredient',)
     search_fields = ('ingredient',)
 #
+
+class CommentsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'recipe', 'author', 'create_date', 'text', 'status')
+    list_display_links = ('text',)
+    search_fields = ('recipe','author','status')
+    list_editable = ('status',)
 #
 # class CalculationAdmin(admin.ModelAdmin):
 #     list_display = ('id', 'ingredient', 'calories', 'price', 'amount', 'total_price', 'total_calories')
@@ -24,5 +30,5 @@ class IngredientesAdmin(admin.ModelAdmin):
 
 admin.site.register(Recipes, RecipesAdmin)
 admin.site.register(Ingredientes, IngredientesAdmin)
-# admin.site.register(Calculation, CalculationAdmin)
+admin.site.register(Comments, CommentsAdmin)
 from django.contrib import admin

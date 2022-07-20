@@ -6,72 +6,30 @@
    <p>Здесь можно расчитать рецепт, его стоимость и ккал без регистрации. </p>
     <br>
     <p>Нужно учитывать, что без регистрации рецепт не сохранится.</p>
-<!--    <br>-->
 
-<!--    <div>-->
-<!--        <form method="get">-->
+<!--            <form method="post">-->
 <!--        {% csrf_token %}-->
-<!--            {{form.ingredient}}-->
-<!--            {{form.calories}}-->
-<!--            {{form.price}}-->
-<!--            {{form.amount}}-->
-<!--             <span>{{error}}</span>-->
+<!--                <input type="text" name="list" defoult="">-->
+<!--        название:  <input type="text" name="ing" defoult=""><br>-->
+<!--        Калории:  <input type="text" name="cal">-->
+<!--        Цена:  <input type="text" name="price"><br>-->
+<!--        Kоличество:  <input type="text" name="count"><br>-->
+<!--&lt;!&ndash;             <span>{{error}}</span>&ndash;&gt;-->
 <!--            <br>-->
 <!--            <button type="submit" class="btn btn-primary">Добавить</button>-->
 <!--        </form>-->
-<!--    </div>-->
-<!--    <br>-->
-
-<!--    <br>-->
-<!--    <div class="table-responsive">-->
-<!--     <table class="table table-sm" class="table table-hover" >-->
-
-<!--      <thead>-->
-<!--        <tr>-->
-<!--        <th scope="col">Ингредиент</th>-->
-<!--        <th scope="col">Ккал</th>-->
-<!--        <th scope="col">Цена<br>руб.</th>-->
-<!--        <th scope="col">Кол-во<br>грамм</th>-->
-<!--        <th scope="col">Итого<br>руб.</th>-->
-<!--        <th scope="col">Итого<br>ккал</th>-->
-
-<!--        </tr>-->
-<!--      </thead>-->
-
-<!--      <tbody>-->
-<!--        {% for elem in data%}-->
-<!--        <p>-->
-<!--        <tr class="table-light">-->
-<!--        <td>{{elem.ingredient}}</td>-->
-<!--        <td>{{elem.price}}</td>-->
-<!--        <td>{{elem.calories}}</td>-->
-<!--        <td>{{elem.amount}}</td>-->
-<!--        <td>{{elem.total_price}}</td>-->
-<!--        <td>{{elem.total_calories}}</td>-->
-<!--        </tr>-->
-<!--        <td><a href="{% url 'delete' elem.id %}" class="btn btn-danger mb-3"> Удалить</a></td>-->
-<!--        <td><a href="{% url 'update' elem.id %}" class="btn btn-info mb-3"> Редактировать</a></td>-->
-
-<!--        </p>-->
+<!--{{list}}-->
+<!--    <form action="{%url 'summa'%}">-->
 
 
-<!--        {%endfor%}-->
-<!--      </tbody>-->
+<!--       1 число:  <input type="text" name="num1"><br>-->
+<!--       2 число:  <input type="text" name="num2"><br>-->
+<!--        <input type="submit"> <button class="button_add>-->
 
 
-<!--      <tfoot>-->
-<!--        <tr>-->
-<!--        <th scope="col">Итого</th>-->
-<!--        <th scope="col"></th>-->
-<!--        <th scope="col"></th>-->
-<!--        <th scope="col"></th>-->
-<!--        <th scope="col">Стоимость</th>-->
-<!--        <th scope="col">Калорийность</th>-->
-<!--        </tr>-->
-<!--      </tfoot>-->
-<!--</table>-->
-<!--</div>-->
-<!--</div>-->
+<!--    </form>-->
+
+</div>
 
 
     {% endblock %}

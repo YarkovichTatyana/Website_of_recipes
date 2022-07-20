@@ -6,6 +6,7 @@ from . import views
 urlpatterns = [
     path('', views.all_recipes, name='all_recipes'),
     path('calculator', views.calculator, name='calculator'),
+    path('summa', views.summa, name='summa'),
     path('recipe_month', views.recipe_month, name='recipe_month'),
     path('ingredient', views.ingredient, name='ingredient'),
     path('<int:pk>', views.RecipesDetailView.as_view(), name='recipe-detail'),
@@ -19,6 +20,7 @@ urlpatterns = [
     path('register', views.RegisterUser.as_view(), name='register'),
     path('login', views.LoginUser.as_view(), name='login'),
     path('logout', views.logout_user, name='logout'),
+
 
     # path('login', views.MyprojectLoginView.as_view(), name='login_page'),
     # path('<int:pk>', views.RecipesDetailView.as_view(), name='create'),

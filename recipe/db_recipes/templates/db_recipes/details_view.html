@@ -3,36 +3,49 @@
 
 {% block greeting%} Рецепт "{{article.title}}" {% endblock %}
 {% block content%}
-        <div id="main">
+<div id="main">
+
           <br>
           <h3>{{article.title}}</h3>
           <p>{{article.compound}}</p>
           <p>{{article.cooking}}</p>
           <br>
           <br>
-        <form method="post" action="">
-        {% csrf_token %}
-            <h5>Чтобы оставить свой комментарий - нужно авторизоваться</h5>
-            {% if massages %}
+
+<p>Добавить комментарий</p>
+
+<!--<button type="submit" class="button_cancel">Очистить</button>-->
+
+            <br>
+            <br>
+      {% if messages %}
             <div class="alert alert-success">
                 {%for el in messages %}
                 {{el}}
                 {% endfor %}
             </div>
-            {%endif%}
-            {{form.as_p}}
-        </form>
-<!--            <input placeholder="ВВедите ваше имя" maxlength="50" name="user_name" class="form-control" required>-->
-<!--            <br>-->
-<!--            <textarea placeholder="Оставьте свой комментарий" maxlength="1000"  name="user_name" class="form-control" required></textarea>-->
-<!--            <br>-->
-<!--            <button type="submit" class="button_add">Добавить коментарий </button>-->
-             <button form="add_form" type="submit" class="button_add">Добавить коментарий </button.form>
-            <button type="submit" class="button_cancel">Очистить</button>
+          {%endif%}
+        <div class="col-4">
+ <form action="" id="add_form" method="post" >
+   {% csrf_token %}
+        {{form.as_p}}
+   </form>
+<button form="add_form" type="submit" class="btn btn-primary">Добавить коментарий </button>
+</div>
+    <p>Комментарии {{article.comments_recipes.all.count}}</p>
+    <ul>
+    {%for i in article.comments_recipes.all%}
+    <li>
+    {{i.author}}
+    {{i.create_date}}
+    {{i.text}}
 
-            <br>
-            <br>
+     </li>
+    {% endfor %}
+    </ul>
 
-        </div>
+</div>
 
 {% endblock %}
+
+
