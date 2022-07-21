@@ -11,10 +11,9 @@
           <p>{{article.cooking}}</p>
           <br>
           <br>
-
+ <p>Мы будем рады вашим комментариям! <p>
 <p>Добавить комментарий</p>
 
-<!--<button type="submit" class="button_cancel">Очистить</button>-->
 
             <br>
             <br>
@@ -30,17 +29,26 @@
    {% csrf_token %}
         {{form.as_p}}
    </form>
+{% if request.user.is_authenticated%}
 <button form="add_form" type="submit" class="btn btn-primary">Добавить коментарий </button>
+{% else %}
+<button form="add_form" type="submit" class="btn btn-primary" disabled>Добавить коментарий </button><p>(только для зарегистрированных пользователей)</p>
+{% endif %}
 </div>
-    <p>Комментарии {{article.comments_recipes.all.count}}</p>
+
+    <p>Комментарии </p>
     <ul>
+{{all}}
     {%for i in article.comments_recipes.all%}
+        {% if i.status == True%}
     <li>
     {{i.author}}
     {{i.create_date}}
     {{i.text}}
 
+
      </li>
+        {% endif%}
     {% endfor %}
     </ul>
 

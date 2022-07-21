@@ -1,12 +1,11 @@
 from pyexpat.errors import messages
 from django.contrib.auth import logout, login
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render
+from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
 from .models import *
-from django.views.generic import DetailView, DeleteView, UpdateView, CreateView
+from django.views.generic import DetailView, DeleteView, UpdateView, CreateView, ListView, DateDetailView
 from .forms import *
 from django.views.generic.edit import FormMixin
-from django.shortcuts import redirect, HttpResponse
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy, reverse
@@ -25,15 +24,13 @@ def all_recipes(request):
 
 
 def calculator(request):
-
     return render(request, 'db_recipes/calculator.html')
 
-def summa(request):
-
-    val1=float(request.GET['num1'])
-    val2 = int(request.GET['num2'])
-    res=val1*val2
-    return render(request, 'db_recipes/summa.html',{'res':res})
+# def summa(request):
+#     val1=float(request.GET['num1'])
+#     val2 = int(request.GET['num2'])
+#     res=val1*val2
+#     return render(request, 'db_recipes/summa.html',{'res':res})
 
 def ingredient(request):
     ing = Ingredientes.objects.order_by('ingredient')
@@ -51,24 +48,26 @@ class IngredientesDetailView(DetailView):
     context_object_name = 'article'
 
 
-class CustomSuccessMessageMixin:
-    @property
-    def success_msg(self):
-        return False
+# class CustomSuccessMessageMixin:
+#     # @property
+#     def success_msg(self):
+#         return False
+#
+#     def form_valid(self, form):
+#         messages.success(self.request, self.success_msg)
+#         return super().form_valid(form)
+#
+#     def get_success_url(self):
+#         return '%s?id=%s' % (self.success_url, self.object.id)
 
-    def form_valid(self, form):
-        messages.success(self.request, self.success_msg)
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return '%s?id=%s' % (self.success_url, self.object.id)
-#class RecipesDetailView(FormMixin, DetailView):
 class RecipesDetailView(FormMixin,DetailView):
     model = Recipes
     template_name = 'db_recipes/details_view.html'
     context_object_name = 'article'
     form_class = CommentForm
-    success_msg = 'Комментарий успешно создан, ожидайте модерации'
+
+
+    # success_msg = 'Комментарий успешно создан, ожидайте модерации'
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
@@ -77,20 +76,55 @@ class RecipesDetailView(FormMixin,DetailView):
         else:
             return self.form_invalid(form)
 
-    def get_success_url(self):
+
+
+
+    def get_success_url(self,**kwargs):
         return reverse_lazy('recipe-detail', kwargs={'pk': self.get_object().id})
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.article = self.get_object()
+        self.object.recipe = self.get_object()
         self.object.author = self.request.user
         self.object.save()
-        return super().form_valid(form)
+        return (super().form_valid(form))
+
+class RecipesCreateView(CreateView):
+    model = Recipes
+    template_name = 'db_recipes/edit_page.html'
+    form_class = RecipesForm
+    success_url = reverse_lazy('all_recipes')
+    success_msg = 'Запись создана'
+    #
+    def get_context_data(self, **kwargs):
+        kwargs['rec'] = Recipes.objects.all().order_by('title')
+        return super().get_context_data(**kwargs)
+
+class RecipesUpdateView(UpdateView):
+    model = Recipes
+    template_name = 'db_recipes/update.html'
+    form_class = RecipesForm
+    success_url = reverse_lazy('all_recipes')
+    success_msg = 'Запись успешно обновлена'
+
+    def get_context_data(self, **kwargs):
+        kwargs['update'] = True
+        return super().get_context_data(**kwargs)
+
+class RecipesDeleteView(DeleteView):
+    model = Recipes
+    template_name = 'db_recipes/delete.html'
+    success_url = reverse_lazy('all_recipes')
+    success_msg = 'Запись удалена'
+    #
+    # def post(self, request, *args, **kwargs):
+    #     messages.success(self.request, self.success_msg)
+    #     return super().post(request)
 
 
 class RegisterUser(DataMixin, CreateView):
     form_class = RegisterUserForm
-    template_name = 'db_recipes//register.html'
+    template_name = 'db_recipes/register.html'
     success_url = reverse_lazy('login')
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -121,13 +155,4 @@ def logout_user(request):
     logout(request)
     return redirect('login')
 
-class RecipesCreateView(CreateView):
-    model = Recipes
-    template_name = 'db_recipes/edit_page.html'
-    form_class = RecipesForm
-    success_url = reverse_lazy('/db_recipes/edit_page')
-    success_msg = 'Запись создана'
-    #
-    def get_context_data(self, **kwargs):
-        kwargs['rec'] = Recipes.objects.all().order_by('title')
-        return super().get_context_data(**kwargs)
+

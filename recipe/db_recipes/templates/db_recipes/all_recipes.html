@@ -1,9 +1,12 @@
 {% extends 'main/layout.html' %}
 
-{% block greeting%} Лучшие рецепты наших читателей {% endblock %}
+{% block greeting%} Pецепты наших читателей {% endblock %}
 {% block content%}
 
 <div id="main">
+
+
+     <br>
       <form method="get" action="{%url 'search'%}" class="d-flex editContent">
           <input type="search" placeholder="Поиск рецепта" name="q" class="form-control" required="">
           <button type="submit"  class="button_add">
@@ -19,7 +22,7 @@
           <p>{{ el.compound}}</p>
 
           <br>
-          <a href={% url 'recipe-detail' el.id %} class='btn btn-dark'>Читать полностью</a>
+          <a href={% url 'recipe-detail' el.id %} class="button_add"'>Читать полностью</a>
         </div>
         {% endfor %}
 {% endblock %}

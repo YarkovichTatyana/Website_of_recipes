@@ -18,10 +18,15 @@ class Recipes(models.Model):
 
 class Comments(models.Model):
     recipe = models.ForeignKey(Recipes, on_delete=models.CASCADE, verbose_name='Рецепт', blank=True, null=True, related_name='comments_recipes')
-    author = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name='Автор комментария', blank = True, null = True )
+    author = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name='Автор', blank = True, null = True )
     create_date = models.DateTimeField(auto_now=True)
     text = models.TextField(verbose_name='Текст комментария')
     status = models.BooleanField(verbose_name='Видимость статьи', default=False)
+
+    # def count(self,form_class):
+    #     all= self.objects.filter(form_class.status==True)
+    #     count=all.count
+    #     return count
 
 class Ingredientes(models.Model):
     ingredient = models.CharField (max_length=100, verbose_name='Ингридиент')
