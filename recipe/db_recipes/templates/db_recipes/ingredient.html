@@ -1,33 +1,41 @@
-
 {% extends 'main/layout.html' %}
 
-{% block greeting%} База ингредиентов.   Калькулятор рецептов {% endblock %}
+{% block greeting%} База ингредиентов. Полезные свойства продуктов. {% endblock %}
 {% block content%}
 
 
 <div class="aside" id="left-aside">
-
-      <form method="get" action="{%url 'search'%}" class="d-flex editContent">
-          <input type="search" placeholder="Поиск ингридиента" name="q" class="form-control" required="">
+      <form method="get" action="{%url 'search_ingredient'%}" class="d-flex editContent">
+          <input type="search" placeholder="Поиск ингрeдиента" name="q" class="form-control" required="">
           <button type="submit"  class="button_add btn-sm">
-              <span class="fa fa-search" aria-hidden="true">Найти</span>
+                <span class="fa fa-search" aria-hidden="true">Найти</span>
           </button>
       </form>
-<br>
-  <h4><big> База ингредиентов </big></h4>
-  <br>
-  {% for el in ing%}
-  <p><a href={% url 'ingredient_details' el.id %} class='aside-link' title="Нажми, чтобы посмотреть" >{{el.ingredient}}</a></p>
-   {%endfor%}
+      <br>
+
+
+     <h4><big> База ингредиентов </big></h4>
+     {% for el in ing%}
+        <table>
+          <tbody>
+             <tr>
+                <td class="table-cell-ing"> <h5>{{el.ingredient}}</h5></td>
+                <td> <a href={% url 'ingredient_details' el.id %} class="aside-link"><h5><i>Читать подробнее</i></h5></a></td>
+
+             </tr>
+          </tbody>
+        </table>
+     {%endfor%}
 </div>
 
 <div class="aside" id="center">
 
-
+{% for el in list%}
+    <h2 class="center_article">{{el.title}}</h2>
+<p class="center_article">{{el.article}}</p>
+{%endfor%}
 </div>
-
-
-    {% endblock %}
+{% endblock %}
 
 
 

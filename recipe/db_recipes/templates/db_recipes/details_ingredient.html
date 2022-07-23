@@ -2,17 +2,15 @@
 
 {% block greeting%} Описание продукта {% endblock %}
 {% block content%}
-
-        <div id="main"id="list_rec">
-            <h3>{{ article.ingredient}}</h3>
-            <br>
-            <p>{{ article.calories}} ккал</p>
-            <br>
-            <p>{{ article.price}} руб </p>
-            <br>
-            <p>{{ article.amount}} гр </p>
-          <br>
-        </div>
+<div id="main"id="list_rec">
+    <h3>{{ article.ingredient}}</h3>
+    <br>
+    <p>Калорийность на 100 гр:  {{ article.calories}} ккал</p>
+    <br>
+    <p>{{ article.description}} </p>
+    <br>
+    <br>
+</div>
 
 
 {% endblock %}

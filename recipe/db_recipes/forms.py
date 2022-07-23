@@ -70,3 +70,8 @@ class CommentForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
         self.fields['text'].widget = Textarea(attrs={'rows':5})
+
+class ArticleForm(forms.ModelForm):
+    class Meta:
+        model=Article
+        fields=['title', 'article']

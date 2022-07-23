@@ -19,26 +19,42 @@ def all_recipes(request):
     if search_guery:
         rec = Recipes.objects.filter(title__icontains=search_guery)
     else:
-        rec = Recipes.objects.order_by('title')
+        rec = Recipes.objects.order_by('-id')
     return render(request, 'db_recipes/all_recipes.html', {'rec': rec})
 
 
 def calculator(request):
     return render(request, 'db_recipes/calculator.html')
 
-# def summa(request):
-#     val1=float(request.GET['num1'])
-#     val2 = int(request.GET['num2'])
-#     res=val1*val2
-#     return render(request, 'db_recipes/summa.html',{'res':res})
-
 def ingredient(request):
-    ing = Ingredientes.objects.order_by('ingredient')
-    return render(request, 'db_recipes/ingredient.html', {'ing': ing})
+    list = Article.objects.filter(seal='yes')
+    search_guery = request.GET.get('q', '')
+    if search_guery:
+        ing = Ingredientes.objects.filter(ingredient__icontains=search_guery).values()
+    else:
+        ing = Ingredientes.objects.order_by('ingredient')
+    return render(request, 'db_recipes/ingredient.html', {'ing': ing,'list':list})
+
+def articles(request):
+    list = Article.objects.filter(seal='no').order_by('-id')
+    return render(request, 'db_recipes/articles.html', {'list':list})
+
+# def articles_detail(request):
+#     list = Article.objects.filter(seal='no').order_by('-id')
+#     return render(request, 'db_recipes/articles_detail.html', {'list':list})
+
+class ArticlesDetailView(FormMixin,DetailView):
+    model = Article
+    template_name = 'db_recipes/articles-detail.html'
+    context_object_name = 'all'
+    form_class = ArticleForm
+
+
+
 
 
 def recipe_month(request):
-    rec = Recipes.objects.all()
+    rec = Recipes.objects.filter(recipe_of_month='yes')
     return render(request, 'db_recipes/recipe_month.html', {'rec': rec})
 
 
@@ -46,6 +62,7 @@ class IngredientesDetailView(DetailView):
     model = Ingredientes
     template_name = 'db_recipes/details_ingredient.html'
     context_object_name = 'article'
+
 
 
 # class CustomSuccessMessageMixin:
@@ -89,7 +106,7 @@ class RecipesDetailView(FormMixin,DetailView):
         self.object.save()
         return (super().form_valid(form))
 
-class RecipesCreateView(CreateView):
+class RecipesCreateView(LoginRequiredMixin, CreateView):
     model = Recipes
     template_name = 'db_recipes/edit_page.html'
     form_class = RecipesForm
@@ -100,7 +117,13 @@ class RecipesCreateView(CreateView):
         kwargs['rec'] = Recipes.objects.all().order_by('title')
         return super().get_context_data(**kwargs)
 
-class RecipesUpdateView(UpdateView):
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
+        self.object.save()
+        return super().form_valid(form)
+
+class RecipesUpdateView(LoginRequiredMixin, UpdateView):
     model = Recipes
     template_name = 'db_recipes/update.html'
     form_class = RecipesForm
@@ -110,16 +133,30 @@ class RecipesUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         kwargs['update'] = True
         return super().get_context_data(**kwargs)
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if self.request.user != kwargs['instance'].author:
+            return self.handle_no_permission()
+        return kwargs
 
-class RecipesDeleteView(DeleteView):
+class RecipesDeleteView(LoginRequiredMixin, DeleteView):
     model = Recipes
     template_name = 'db_recipes/delete.html'
     success_url = reverse_lazy('all_recipes')
-    success_msg = 'Запись удалена'
+    # success_msg = 'Запись удалена'
     #
     # def post(self, request, *args, **kwargs):
     #     messages.success(self.request, self.success_msg)
     #     return super().post(request)
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object
+        if self.request.user != self.object.author:
+            return self.handle_no_permission()
+        success_url = self.get_success_url()
+        self.object.delete()
+        return HttpResponseRedirect(success_url)
+
 
 
 class RegisterUser(DataMixin, CreateView):
@@ -135,7 +172,7 @@ class RegisterUser(DataMixin, CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('home')
+        return redirect('index')
 
 
 class LoginUser(DataMixin, LoginView):

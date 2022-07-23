@@ -1,25 +1,31 @@
 {% extends 'main/layout.html' %}
 
-{% block greeting%} Привет, я сайт твоих рецептов {% endblock %}
+{% block greeting%}
+{% if request.user.is_authenticated%}
+Привет, {{user.username }}, я сайт твоих рецептов
+{% else %}
+Привет, я сайт твоих рецептов
+{% endif %}
+{% endblock %}
 {% block content%}
-<div id="main">Основная часть Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-      incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-       exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-           exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-            dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-             proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-               exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<div id="main">
+ <p>Приветсвуем вас на нашем сайте, который был создан с целью создания
+ сборника самых лучших рецептов наших читателей. Здесь можно делиться своими находками в области кулинарии,
+ пробовать новые методики приготовления, которые предлагают мастера своего дела, и находить лучшие для себя
+  рецепты.</p>
+ <p>Здесь можно согреться пряным супом из спаржи, пробовать утиную грудку под клюквенным соусом, насладиться
+  вкуснейшими налистниками, которые подаются со сливками с мороженым и листочками мяты...</p>
+ <p>Здесь можно путешествовать по всему миру! Посетить Австрию, где готовят знаменитые венские шницели,
+  отпробовать настоящую итальянскую пиццу, или асадо в Аргентине.
+  А вы знаете, что гуляш был придуман в Венгрии?На венгерском языке «гуляш» обозначает «пастух».
+  Это блюдо стало национальным в конце 1800-х годов, когда венгры стремились найти символы собственной
+  идентичности и отделиться от других народов Австро-Венгерской империи. Состоящий из тушеной говядины,
+  овощей, красного лука и всевозможных специй, этот густой суп имеет восхитительный аромат за счёт паприки
+  и того факта, что мясо долго томится на малом огне.</p>
+ <p> Эти и другие удивительные факты  можно будет узнать на страницах нашего сайта. Только не забывайте,что:  </p>
+
+ <p>
+ «ЛУЧШАЯ ПРИПРАВА К ПИЩЕ – ГОЛОД».</p>
+ <p style="padding-left: 350px"><i style="padding-left: 50px">Сократ</i></p>
    </div>
 {% endblock %}

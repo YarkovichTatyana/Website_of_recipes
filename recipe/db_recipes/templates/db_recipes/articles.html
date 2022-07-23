@@ -1,0 +1,23 @@
+{% extends 'main/layout.html' %}
+
+{% block greeting%} Список статей нашего сайта {% endblock %}
+{% block content%}
+
+<div id="main">
+
+        {% for el in list%}
+ <table>
+          <tbody>
+             <tr>
+                <td class="table-cell-ing"> <h4>{{ el.title }}...</h4></td>
+                <td> <a href={% url 'articles_detail' el.id %} class="aside-link"'><h4><i>Читать подробнее</i></h4></a></td>
+                 <br>
+             </tr>
+          </tbody>
+        </table>
+
+
+        {% endfor %}
+  </div>
+{% endblock %}
+

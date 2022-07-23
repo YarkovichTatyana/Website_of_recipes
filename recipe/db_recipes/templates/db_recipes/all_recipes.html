@@ -4,23 +4,21 @@
 {% block content%}
 
 <div id="main">
+ <br>
+ <form method="get" action="{%url 'search'%}" class="d-flex editContent">
+     <input type="search" placeholder="Поиск рецепта" name="q" class="form-control" required="">
+     <button type="submit"  class="button_add">
+         <span class="fa fa-search" aria-hidden="true">Найти</span>
+     </button>
+ </form>
 
-
-     <br>
-      <form method="get" action="{%url 'search'%}" class="d-flex editContent">
-          <input type="search" placeholder="Поиск рецепта" name="q" class="form-control" required="">
-          <button type="submit"  class="button_add">
-              <span class="fa fa-search" aria-hidden="true">Найти</span>
-          </button>
-      </form>
-       </div>
-
+  </div>
         {% for el in rec%}
         <div id="main">
           <br>
           <h3>{{ el.title }}</h3>
           <p>{{ el.compound}}</p>
-
+          <p>Автор: {{el.author}}</p>
           <br>
           <a href={% url 'recipe-detail' el.id %} class="button_add"'>Читать полностью</a>
         </div>

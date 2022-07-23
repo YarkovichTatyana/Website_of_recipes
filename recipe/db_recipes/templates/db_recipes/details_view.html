@@ -1,57 +1,51 @@
 {% extends 'main/layout.html' %}
 
-
 {% block greeting%} Рецепт "{{article.title}}" {% endblock %}
 {% block content%}
 <div id="main">
-
           <br>
           <h3>{{article.title}}</h3>
           <p>{{article.compound}}</p>
           <p>{{article.cooking}}</p>
-          <br>
-          <br>
  <p>Мы будем рады вашим комментариям! <p>
-<p>Добавить комментарий</p>
-
-
-            <br>
-            <br>
+ <br>
+ <h3><ins><i> Добавить комментарий</i> </ins></h3>
       {% if messages %}
             <div class="alert alert-success">
                 {%for el in messages %}
                 {{el}}
                 {% endfor %}
             </div>
-          {%endif%}
-        <div class="col-4">
- <form action="" id="add_form" method="post" >
-   {% csrf_token %}
+      {%endif%}
+ <div class="col-4">
+    <form action="" id="add_form" method="post" >
+        {% csrf_token %}
         {{form.as_p}}
-   </form>
-{% if request.user.is_authenticated%}
-<button form="add_form" type="submit" class="btn btn-primary">Добавить коментарий </button>
-{% else %}
-<button form="add_form" type="submit" class="btn btn-primary" disabled>Добавить коментарий </button><p>(только для зарегистрированных пользователей)</p>
-{% endif %}
+    </form>
+    {% if request.user.is_authenticated%}
+        <button form="add_form" type="submit" class="btn btn-primary">Добавить коментарий </button>
+    {% else %}
+        <button form="add_form" type="submit" class="btn btn-primary" disabled>Добавить коментарий </button><p>(только для зарегистрированных пользователей)</p>
+    {% endif %}
 </div>
 
-    <p>Комментарии </p>
+<p>Ваш комментарий будет опубликован после модерации.</p>
+<h4><ins><i> Комментарии наших читателей:</i> </ins></h4>
     <ul>
-{{all}}
-    {%for i in article.comments_recipes.all%}
-        {% if i.status == True%}
-    <li>
-    {{i.author}}
-    {{i.create_date}}
-    {{i.text}}
-
-
-     </li>
-        {% endif%}
-    {% endfor %}
+    {%if article.comments_recipes.all %}
+        {%for i in article.comments_recipes.all%}
+            {% if i.status == True%}
+                <li>
+                {{i.author}}
+                {{i.create_date}}
+                <p>{{i.text}}</p>
+                </li>
+            {% endif%}
+        {% endfor %}
+    {%else%}
+        <p> Пока нет комментариев </p>
+    {% endif%}
     </ul>
-
 </div>
 
 {% endblock %}

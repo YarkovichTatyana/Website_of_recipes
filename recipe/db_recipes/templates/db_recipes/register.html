@@ -1,16 +1,23 @@
 {% extends 'main/layout.html' %}
 
-{% block greeting%} Привет, я сайт твоих рецептов {% endblock %}
+{% block greeting%} Страница регистрации {% endblock %}
 {% block content%}
 <div id="main">
  <form  method="post">
   {% csrf_token %}
-    {% for el in form %}
-  <p><label class="form-label" for="{{ el.id_for_label}}">{{el.label}}:</label> {{el}}</p>
+  {% for el in form %}
+  <table>
+    <tbody>
+     <tr>
+        <td class="table-cell"> <label class="form-label" for="{{ el.id_for_label}}">{{el.label}}:</label></td>
+        <td class="table-cell"> {{el}}</td>
+     </tr>
+    </tbody>
+  </table>
   <div class="form-error">{{el.errors}}</div>
   {% endfor %}
+  <br>
   <button class="button_add" type="submit">Регистрация</button>
  </form>
-
 </div>
 {% endblock %}
