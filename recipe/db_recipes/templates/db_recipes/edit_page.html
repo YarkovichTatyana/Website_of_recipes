@@ -1,52 +1,44 @@
 {% extends 'main/layout.html' %}
 
-{% block greeting%} Привет, я сайт твоих рецептов {% endblock %}
+{% block greeting%} Личный кабинет {% endblock %}
 {% block content%}
 
 
 <div class="aside" id="left-aside">
-
-<!--      <form method="get" action="{%url 'search'%}" class="d-flex editContent">-->
-<!--          <input type="search" placeholder="Поиск ингридиента" name="q" class="form-control" required="">-->
-<!--          <button type="submit"  class="button_add btn-sm">-->
-<!--              <span class="fa fa-search" aria-hidden="true">Найти</span>-->
  <p>Редактирование рецепта </p>
-<br>
-      {% for i in rec %}
-
-
+ <br>
+   {% for i in rec %}
        {{i.title}} <br>
-<table>
-    <tbody>
-     <tr>
-         <td class="table-cell-ing"> Автор: {{i.author}}</td>
-        <td  class="aside-link"> <a href="{% url 'update' i.id %}" class="button_add">редактировать</a></td>
-
-     </tr>
-    </tbody>
-  </table>
-    <br>
-     {% endfor %}
+            <table>
+                <tbody>
+                    <tr>
+                    <td class="aside-link"> <a href={% url 'recipe-detail' i.id %} class="button_add"  style="font-size: 14px; background:#326c14">Просмотреть</a></td>
+                    <td  class="aside-link"> <a href="{% url 'update' i.id %}" class="button_add" style="font-size: 14px; float:center">Pедактировать</a></td>
+                    <td  class="aside-link"> <a href="{% url 'delete' i.id %}" class="button_cancel" style="font-size: 14px">Удалить</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+   {% endfor %}
 </div>
 
 <div class="aside" id="center">
 
-           <p>Добавление рецепта </p>
+<p>Добавление рецепта </p>
+   <form method="post">
+   {% csrf_token %}
+       Название рецепта:
+       <p title="Введите название рецепта">{{form.title}}</p>
+       Ингредиенты(состав) рецепта:
+       <p title="Введите ингредиенты и их количество">{{form.compound}}</p>
+       Процесс приготовления:
+       <p title="Подробно опишите процесс приготовления">{{form.cooking}}</p>
+       <span>{{error}}</span>
+       <br>
+       <button type="submit" class="button_cancel">Добавить</button>
 
 
-        <form method="post">
-        {% csrf_token %}
-            Название рецепта:
-            <p title="Введите название рецепта">{{form.title}}</p>
-            Ингредиенты(состав) рецепта:
-            <p title="Введите ингредиенты и их количество">{{form.compound}}</p>
-            Процесс приготовления:
-            <p title="Подробно опишите процесс приготовления">{{form.cooking}}</p>
-             <span>{{error}}</span>
-            <br>
-            <button type="submit" class="button_cancel">Добавить</button>
-        </form>
-
+   </form>
 </div>
 
 

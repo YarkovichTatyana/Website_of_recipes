@@ -5,8 +5,8 @@
 
 <div id="main">
 
-        {% for el in list%}
- <table>
+{% for el in list%}
+      <table>
           <tbody>
              <tr>
                 <td class="table-cell-ing"> <h4>{{ el.title }}...</h4></td>
@@ -14,10 +14,7 @@
                  <br>
              </tr>
           </tbody>
-        </table>
-
-
-        {% endfor %}
+      </table>{% endfor %}
   </div>
 {% endblock %}
 

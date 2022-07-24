@@ -1,16 +1,18 @@
 {% extends 'main/layout.html' %}
 
-{% block greeting%} Привет, я сайт твоих рецептов {% endblock %}
+{% block greeting%} Страница удаления {% endblock %}
 {% block content%}
 <div id="main">
-<h1>Удаление строки</h1>
+<p><a href="{% url 'edit_page' %}" class="button_add">Вернуться назад</a></p>
+    <br>
+    <br>
+    <p> Внимание! После удаления восстановить будет невозможно!</p>
      <br>
         <div>
          <form method="post">
          {% csrf_token %}
                {{form.title}}
-             <br>
-             <button type="submit" class="btn btn-primary">Удаление</button>
+             <button type="submit" class="button_cancel" style="float: left">Удалить</button>
          </form>
         </div>
    </div>

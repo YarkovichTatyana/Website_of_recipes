@@ -23,16 +23,21 @@
         {{form.as_p}}
     </form>
     {% if request.user.is_authenticated%}
-        <button form="add_form" type="submit" class="btn btn-primary">Добавить коментарий </button>
+        <button form="add_form" type="submit" class="button_add">Добавить комментарий </button>
+     <br>
+     <br>
+     <p>Ваш комментарий будет опубликован после модерации.</p>
     {% else %}
-        <button form="add_form" type="submit" class="btn btn-primary" disabled>Добавить коментарий </button><p>(только для зарегистрированных пользователей)</p>
+        <button form="add_form" type="submit" class="button_add" disabled>Добавить комментарий </button>
+     <br>
+     <br>
+        <p>(только для зарегистрированных пользователей)</p>
     {% endif %}
 </div>
 
-<p>Ваш комментарий будет опубликован после модерации.</p>
-<h4><ins><i> Комментарии наших читателей:</i> </ins></h4>
     <ul>
     {%if article.comments_recipes.all %}
+        <h4><ins><i> Комментарии наших читателей:</i> </ins></h4>
         {%for i in article.comments_recipes.all%}
             {% if i.status == True%}
                 <li>

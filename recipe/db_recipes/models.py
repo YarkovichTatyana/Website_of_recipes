@@ -1,12 +1,10 @@
 from django.contrib.auth.models import *
 from django.db import models
 
-
-
 class Recipes(models.Model):
     author = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name='Автор', blank = True, null = True, related_name='author')
     title = models.CharField (max_length=100, verbose_name='Название рецепта')
-    compound = models.TextField(max_length=500, verbose_name='Ингридиенты')
+    compound = models.TextField(max_length=500, verbose_name='Ингрeдиенты')
     cooking = models.TextField(max_length=2000, verbose_name='Процесс приготовления')
     recipe_of_month = models.CharField (max_length=100, verbose_name='Отметка "рецепт" месяца', default='no')
 
@@ -25,13 +23,9 @@ class Comments(models.Model):
     text = models.TextField(verbose_name='Текст комментария')
     status = models.BooleanField(verbose_name='Видимость статьи', default=False)
 
-    # def count(self,form_class):
-    #     all= self.objects.filter(form_class.status==True)
-    #     count=all.count
-    #     return count
 
 class Ingredientes(models.Model):
-    ingredient = models.CharField (max_length=100, verbose_name='Ингридиент')
+    ingredient = models.CharField (max_length=100, verbose_name='Ингрeдиент')
     calories = models.FloatField (verbose_name='Ккал на 100гр')
     description =models.TextField(verbose_name='Описание',default='Описание')
     price = models.FloatField(verbose_name='Цена за 100 гр', default=0)

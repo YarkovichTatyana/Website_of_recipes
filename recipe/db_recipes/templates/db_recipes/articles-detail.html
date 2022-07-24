@@ -3,12 +3,14 @@
 {% block greeting%} Статья "{{all.title}}" {% endblock %}
 {% block content%}
 <div id="main">
-          <br>
-          <h3>{{all.title}}</h3>
-          <p>{{all.article}}</p>
+    <p><a href="{% url 'articles' %}" class="button_add">Вернуться назад</a></p>
+    <br>
+    <br>
+    <h3>{{all.title}}</h3>
+    <br>
+    <p>{{all.article}}</p>
+</div>
 
-</div>
-</div>
 {% endblock %}
 
 

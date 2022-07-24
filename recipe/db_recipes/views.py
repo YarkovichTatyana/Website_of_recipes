@@ -1,14 +1,10 @@
-from pyexpat.errors import messages
 from django.contrib.auth import logout, login
-from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
-from .models import *
-from django.views.generic import DetailView, DeleteView, UpdateView, CreateView, ListView, DateDetailView
+from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.views.generic import DetailView, DeleteView, UpdateView, CreateView
 from .forms import *
 from django.views.generic.edit import FormMixin
-from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth.models import User
-from django.urls import reverse_lazy, reverse
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
 from .utils import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -39,18 +35,12 @@ def articles(request):
     list = Article.objects.filter(seal='no').order_by('-id')
     return render(request, 'db_recipes/articles.html', {'list':list})
 
-# def articles_detail(request):
-#     list = Article.objects.filter(seal='no').order_by('-id')
-#     return render(request, 'db_recipes/articles_detail.html', {'list':list})
 
 class ArticlesDetailView(FormMixin,DetailView):
     model = Article
     template_name = 'db_recipes/articles-detail.html'
     context_object_name = 'all'
     form_class = ArticleForm
-
-
-
 
 
 def recipe_month(request):
@@ -64,27 +54,11 @@ class IngredientesDetailView(DetailView):
     context_object_name = 'article'
 
 
-
-# class CustomSuccessMessageMixin:
-#     # @property
-#     def success_msg(self):
-#         return False
-#
-#     def form_valid(self, form):
-#         messages.success(self.request, self.success_msg)
-#         return super().form_valid(form)
-#
-#     def get_success_url(self):
-#         return '%s?id=%s' % (self.success_url, self.object.id)
-
 class RecipesDetailView(FormMixin,DetailView):
     model = Recipes
     template_name = 'db_recipes/details_view.html'
     context_object_name = 'article'
     form_class = CommentForm
-
-
-    # success_msg = 'Комментарий успешно создан, ожидайте модерации'
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
@@ -92,9 +66,6 @@ class RecipesDetailView(FormMixin,DetailView):
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
-
-
-
 
     def get_success_url(self,**kwargs):
         return reverse_lazy('recipe-detail', kwargs={'pk': self.get_object().id})
@@ -110,11 +81,10 @@ class RecipesCreateView(LoginRequiredMixin, CreateView):
     model = Recipes
     template_name = 'db_recipes/edit_page.html'
     form_class = RecipesForm
-    success_url = reverse_lazy('all_recipes')
-    success_msg = 'Запись создана'
-    #
+    success_url = reverse_lazy('edit_page')
+
     def get_context_data(self, **kwargs):
-        kwargs['rec'] = Recipes.objects.all().order_by('title')
+        kwargs['rec'] = Recipes.objects.filter(author=self.request.user).order_by('-id')
         return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
@@ -123,12 +93,12 @@ class RecipesCreateView(LoginRequiredMixin, CreateView):
         self.object.save()
         return super().form_valid(form)
 
+
 class RecipesUpdateView(LoginRequiredMixin, UpdateView):
     model = Recipes
     template_name = 'db_recipes/update.html'
     form_class = RecipesForm
-    success_url = reverse_lazy('all_recipes')
-    success_msg = 'Запись успешно обновлена'
+    success_url = reverse_lazy('edit_page')
 
     def get_context_data(self, **kwargs):
         kwargs['update'] = True
@@ -142,17 +112,9 @@ class RecipesUpdateView(LoginRequiredMixin, UpdateView):
 class RecipesDeleteView(LoginRequiredMixin, DeleteView):
     model = Recipes
     template_name = 'db_recipes/delete.html'
-    success_url = reverse_lazy('all_recipes')
-    # success_msg = 'Запись удалена'
-    #
-    # def post(self, request, *args, **kwargs):
-    #     messages.success(self.request, self.success_msg)
-    #     return super().post(request)
+    success_url = reverse_lazy('edit_page')
 
     def delete(self, request, *args, **kwargs):
-        self.object = self.get_object
-        if self.request.user != self.object.author:
-            return self.handle_no_permission()
         success_url = self.get_success_url()
         self.object.delete()
         return HttpResponseRedirect(success_url)

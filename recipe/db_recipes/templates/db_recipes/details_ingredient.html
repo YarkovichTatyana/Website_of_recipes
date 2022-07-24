@@ -3,6 +3,9 @@
 {% block greeting%} Описание продукта {% endblock %}
 {% block content%}
 <div id="main"id="list_rec">
+    <p><a href="{% url 'ingredient' %}" class="button_add">Вернуться назад</a></p>
+    <br>
+    <br>
     <h3>{{ article.ingredient}}</h3>
     <br>
     <p>Калорийность на 100 гр:  {{ article.calories}} ккал</p>

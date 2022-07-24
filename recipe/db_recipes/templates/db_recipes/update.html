@@ -1,18 +1,17 @@
-
 {% extends 'main/layout.html' %}
 
-{% block greeting%} База ингредиентов {% endblock %}
+{% block greeting%} Страница редактирования {% endblock %}
 {% block content%}
 <div id="main">
- <p>Страница редактирования</p>
-        <p><a href="{% url 'edit_page' %}">Вернуться назад</a></p>
-
+    <p><a href="{% url 'edit_page' %}" class="button_add">Вернуться назад</a></p>
+    <br>
+    <br>
          <form id="update_data" method="post">
             {% csrf_token %}
             {{form}}
         </form>
-
-        <button form="update_data" type="submit" class="btn btn-primary">Обновить</button>
+    <br>
+    <button form="update_data" type="submit" class="button_cancel">Обновить</button>
 </div>
     {% endblock %}
 
