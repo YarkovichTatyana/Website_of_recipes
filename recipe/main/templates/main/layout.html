@@ -14,12 +14,12 @@
   <div id="topic"><i> Создай свой рецепт</i></div>
 
   {% if request.user.is_authenticated%}
-  <div class="class-text" ><a href="{% url 'edit_page' %}" title="Добавление и редактирование своих рецептов" class="aside-link">Личный кабинет</a>| <a href="{% url 'logout' %}" title="Выйти" class="aside-link">Выход</a></div>
+  <div class="class-text" ><a href="{% url 'edit_page' %}" title="Добавление и редактирование своих рецептов" class="head-link">Личный кабинет</a>| <a href="{% url 'logout' %}" title="Выйти" class="aside-link">Выход</a></div>
   {% else %}
-  <div class="class-text"><a href="{% url 'register' %}" title="Регистрироваться" class="aside-link">Регистрация</a> | <a href="{% url 'login' %}" title="Для зарегистрированных пользователей" class="aside-link">Авторизация</a></div>
+  <div class="class-text"><a href="{% url 'register' %}" title="Регистрироваться" class="head-link">Регистрация</a> | <a href="{% url 'login' %}" title="Для зарегистрированных пользователей" class="aside-link">Авторизация</a></div>
   {% endif %}
-  <div class="class-text"><a href="{% url 'all_recipes' %}" title="Посмотреть рецепты" class="aside-link">Рецепты сайта</a></div>
-  <div class="class-text"><a href="{% url 'index' %}" title="Перейти на главную страницу" class="aside-link">Главная</a></div>
+  <div class="class-text"><a href="{% url 'all_recipes' %}" title="Посмотреть рецепты" class="head-link">Рецепты сайта</a></div>
+  <div class="class-text"><a href="{% url 'index' %}" title="Перейти на главную страницу" class="head-link">Главная</a></div>
   <div class="class-text" id="header">
   </div>
 
@@ -37,11 +37,12 @@
      <br>
      <a href="{% url 'ingredient' %}" title="Посмотреть базу ингридиентов" class="aside-link"><li> Ингредиенты и интересные факты о них</li></a>
      <br>
+     <br>
+
      {% if request.user.is_authenticated%}
      {% endif %}
    </ul>
   </div>
-
   {% block content%}
   {% endblock %}
 

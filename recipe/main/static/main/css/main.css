@@ -64,15 +64,16 @@
   border: 1px solid #f5f3f4;
   opacity: 100%;
   background:#9da1a0;
-  color:  #f5f3f4;
   margin-left: 2%;
   border-radius: 15px;
-  font-size: 22px;
+
 
 }
 
 #main{
  width:70%;
+ color:  #f5f3f4;
+ font-size: 22px;
  text-align:justify;
  float: left;
  padding: 20px 2.5%;
@@ -80,6 +81,7 @@
 
 .aside{
  width: 22%;
+ height: 550px
  text-align: left;
  padding-left: 10px;
  float: right;
@@ -91,6 +93,7 @@
 #left-aside{
  width:30%;
  float: left;
+
 }
 
 #center{
@@ -128,20 +131,25 @@
  font-size: 16px
 }
 
-.aside-link {
+.aside-link , .head-link{
   text-decoration: none;
   color: #f5f3f4;
+  font-size: 22px;
   font-family: 'Poppins', sans-serif;
 }
+.aside-link :hover{
+  text-decoration: underline;
+  text-decoration-color: #f5f3f4;
+  color: #f5f3f4;
 
-.aside-link:hover{
+}
+.head-link:hover{
   text-decoration: underline;
   text-decoration-color: #f5f3f4;
   color: #f5f3f4;
   font-size:23px;
-  font-weight:bold;
-  transform: scale (1.5);
-  transition:transform .8s ease;
+  transform: scale (0.3);
+  transition:transform .3s ease;
 }
 
 .create{
